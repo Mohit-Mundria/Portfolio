@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohit Mundria | AI & ML Portfolio</title>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    html, body {
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #f0f2f5 0%, #c9e7ff 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+    }
+    body.dark {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #eee;
+    }
+    #particles-js {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none;
+    }
+    header {
+      text-align: center;
+      margin-top: 3.5rem;
+      margin-bottom: 3.5rem;
+      animation: fadeInDown 1.2s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    header h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #007acc, #f9d923, #00c3ff, #ff61a6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 4px 24px #007acc22;
+    }
+    header .tagline {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 0.2rem;
+      animation: fadeIn 2s;
+      background: linear-gradient(90deg, #00c3ff, #ff61a6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark header .tagline { color: #bbb; }
+    #resume-float {
+      position: fixed; bottom: 38px; right: 38px; z-index: 10;
+      background: linear-gradient(90deg, #007acc, #00c3ff);
+      color: #fff; padding: 16px 28px; border-radius: 50px;
+      font-size: 1.15rem; font-weight: bold; box-shadow: 0 8px 24px #007acc55;
+      border: none; cursor: pointer; display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; animation: floatIn 1.2s;
+    }
+    #resume-float:hover { background: #ff61a6; color: #fff; text-decoration: none; }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(60px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    #theme-toggle {
+      position: fixed; top: 34px; right: 38px; z-index: 10;
+      background: #fff; color: #007acc; border: 2px solid #007acc;
+      border-radius: 50px; padding: 12px 22px; font-size: 1.1rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 12px #007acc33; transition: background 0.3s, color 0.3s;
+    }
+    body.dark #theme-toggle { background: #222; color: #fff; border-color: #3399ff; }
+    #theme-toggle:hover { background: #007acc; color: #fff; }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem 1.5rem;
+      z-index: 2;
+    }
+    section {
+      margin-bottom: 3.5rem;
+      padding: 2.2rem 2.4rem;
+      border-radius: 18px;
+      background: linear-gradient(120deg, #fff 80%, #e9f0ff 100%);
+      box-shadow: 0 4px 24px #007acc15;
+      animation: fadeInUp 1.2s;
+    }
+    body.dark section {
+      background: linear-gradient(120deg, #232a36 80%, #1e1e1e 100%);
+      box-shadow: 0 4px 24px #3399ff11;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    section h2 {
+      font-size: 2.3rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 3px solid #007acc;
+      width: fit-content;
+      padding-bottom: 0.2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #00c3ff, #ff61a6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark section h2 { border-color: #f9d923; }
+    #about p, #story p {
+      font-size: 1.25rem;
+      white-space: pre-line;
+      animation: fadeIn 2s;
+      margin-bottom: 0.8rem;
+    }
+    /* Skills Section */
+    #skills-list {
+      display: flex; flex-wrap: wrap; gap: 2.5rem 3rem; margin-top: 1.5rem;
+    }
+    .skill-bar {
+      width: 340px; max-width: 100%; margin-bottom: 1.7rem;
+    }
+    .skill-label {
+      font-size: 1.13rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .progress-bg {
+      width: 100%; height: 20px; background: #e0e7ef; border-radius: 30px; overflow: hidden; box-shadow: 0 2px 8px #007acc22;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%; border-radius: 30px;
+      background: linear-gradient(90deg, #007acc, #00c3ff, #f9d923, #ff61a6);
+      width: 0;
+      transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+      box-shadow: 0 2px 12px #00c3ff44;
+    }
+    .skill-bar[data-level]:hover .progress-bar {
+      filter: brightness(1.1) drop-shadow(0 0 8px #ff61a6);
+    }
+    .progress-text {
+      position: absolute; right: 12px; top: 1px; font-size: 0.98rem; color: #222; font-weight: 700;
+    }
+    body.dark .progress-bg { background: #232a36; }
+    body.dark .progress-text { color: #f9d923; }
+    /* Projects */
+    .projects-list {
+      display: flex; flex-wrap: wrap; gap: 2.2rem; justify-content: center;
+    }
+    .project-card {
+      flex: 1 1 370px; min-width: 320px; max-width: 420px;
+      background: linear-gradient(120deg, #e9f0ff 75%, #fff 100%);
+      border-radius: 18px; padding: 1.7rem 1.4rem 1.5rem 1.4rem;
+      box-shadow: 0 8px 24px #007acc22;
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden; transition: transform 0.35s, box-shadow 0.35s;
+      animation: cardPop 1.2s;
+    }
+    @keyframes cardPop {
+      from { opacity: 0; transform: scale(0.92);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    body.dark .project-card {
+      background: linear-gradient(120deg, #232a36 75%, #1e1e1e 100%);
+      box-shadow: 0 8px 36px #3399ff33;
+    }
+    .project-card:hover {
+      transform: translateY(-18px) scale(1.04);
+      box-shadow: 0 16px 32px #ff61a644;
+    }
+    .project-card h3 {
+      margin-bottom: 0.5rem;
+      color: #004a99;
+      font-size: 1.35rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(90deg, #00c3ff, #f9d923, #ff61a6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark .project-card h3 { color: #66b2ff; }
+    .project-card .description {
+      font-size: 1.13rem; margin-bottom: 0.8rem; color: #333; animation: fadeIn 1.6s;
+    }
+    body.dark .project-card .description { color: #ccc; }
+    .tech-stack {
+      font-size: 1.05rem; font-style: italic; color: #555; margin-bottom: 0.95rem;
+    }
+    body.dark .tech-stack { color: #aaa; }
+    .project-links a {
+      display: inline-block; margin-right: 1rem; font-weight: 600;
+      color: #007acc; border: 1.5px solid #007acc; padding: 7px 16px; border-radius: 6px;
+      background: #fff; transition: background 0.3s, color 0.3s; font-size: 1rem;
+      box-shadow: 0 2px 8px #007acc22; text-decoration: none;
+    }
+    .project-links a:hover { background: #ff61a6; color: white; border-color: #ff61a6;}
+    .project-card .sparkle {
+      position: absolute; top: 10px; right: 18px; font-size: 1.3rem; color: #f9d923;
+      animation: sparkle 1.7s infinite alternate; pointer-events: none;
+    }
+    @keyframes sparkle {
+      0% { opacity: 0.4; transform: scale(1);}
+      100% { opacity: 1; transform: scale(1.3);}
+    }
+    .chart-container { margin-top: 1.2rem; margin-bottom: 1.2rem; text-align: center; }
+    /* Story Section */
+    #story {
+      background: linear-gradient(120deg, #e9f0ff 80%, #fff 100%);
+      box-shadow: 0 4px 24px #007acc11;
+    }
+    body.dark #story {
+      background: linear-gradient(120deg, #232a36 80%, #1e1e1e 100%);
+      box-shadow: 0 4px 24px #3399ff11;
+    }
+    #story p { font-size: 1.22rem; }
+    /* Contact */
+    #contact ul {
+      list-style: none; font-size: 1.18rem; color: #222; padding-left: 0; margin-top: 0.5rem;
+    }
+    body.dark #contact ul { color: #eee; }
+    #contact li {
+      margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.7rem;
+    }
+    #contact a { color: #007acc; font-weight: 600; word-break: break-all; }
+    #contact a:hover { text-decoration: underline; color: #ff61a6;}
+    /* Responsive */
+    @media (max-width: 1100px) {
+      main { padding: 0.7rem;}
+      .projects-list { flex-direction: column; align-items: center;}
+      .project-card { width: 100%; max-width: 520px;}
+      header h1 { font-size: 2.3rem;}
+      section h2 { font-size: 1.4rem;}
+      #skills-list { flex-direction: column;}
+    }
+    @media (max-width: 600px) {
+      #resume-float, #theme-toggle { right: 10px;}
+      #resume-float { bottom: 10px; padding: 10px 16px; font-size: 0.98rem;}
+      main { padding: 0.3rem;}
+      section { padding: 1.1rem 0.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle background -->
+  <div id="particles-js"></div>
+  <!-- Floating Resume Button -->
+  <a id="resume-float"
+     href="https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/75149198/5bd858e9-245b-49d0-b2f3-5b3ccd4c7ed6/Mohit-Mundria_Resume_new.pdf"
+     target="_blank" download>
+    <i class="fa-solid fa-file-arrow-down"></i> Resume
+  </a>
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" aria-label="Toggle Light/Dark Mode">
+    <i class="fa-solid fa-moon"></i> Dark Mode
+  </button>
+  <!-- Main Content -->
+  <header>
+    <h1>Mohit Mundria</h1>
+    <div class="tagline">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Turning Data into Decisions — AI & ML Sorcerer Crafting Tomorrow’s Solutions
+    </div>
+  </header>
+  <main>
+    <section id="about">
+      <h2><i class="fa-solid fa-user-astronaut"></i> About Me</h2>
+      <p>
+        I’m Mohit Mundria, a results-driven AI and Machine Learning enthusiast passionate about transforming complex data into actionable insights. Currently pursuing my Bachelor of Computer Applications at Chandigarh Group of Colleges, I specialize in building end-to-end AI solutions using Python, TensorFlow, and Scikit-Learn. From predicting stock prices to diagnosing diseases and detecting student depression, I thrive on solving real-world problems with scalable, data-driven models.
+
+        My journey in AI is fueled by continuous learning and a problem-solving mindset, backed by hands-on experience in deep learning architectures like CNNs, RNNs, and ANN. Beyond coding, I bring strong communication, adaptability, and critical thinking skills to every project, eager to contribute impactful AI innovations in fast-paced environments.
+      </p>
+    </section>
+    <section id="skills">
+      <h2><i class="fa-solid fa-laptop-code"></i> Skills</h2>
+      <div id="skills-list">
+        <div class="skill-bar" data-level="95">
+          <div class="skill-label"><i class="fa-brands fa-python"></i> Python</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">95%</span></div>
+        </div>
+        <div class="skill-bar" data-level="90">
+          <div class="skill-label"><i class="fa-solid fa-robot"></i> Machine Learning (Scikit-learn)</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">90%</span></div>
+        </div>
+        <div class="skill-bar" data-level="85">
+          <div class="skill-label"><i class="fa-solid fa-brain"></i> Deep Learning (TensorFlow, CNN, RNN, ANN)</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">85%</span></div>
+        </div>
+        <div class="skill-bar" data-level="88">
+          <div class="skill-label"><i class="fa-solid fa-database"></i> Data Science (Pandas, NumPy, Matplotlib, Seaborn)</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">88%</span></div>
+        </div>
+        <div class="skill-bar" data-level="75">
+          <div class="skill-label"><i class="fa-solid fa-code"></i> C / C++</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">75%</span></div>
+        </div>
+        <div class="skill-bar" data-level="65">
+          <div class="skill-label"><i class="fa-solid fa-database"></i> SQL (Basic)</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">65%</span></div>
+        </div>
+        <div class="skill-bar" data-level="92">
+          <div class="skill-label"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">92%</span></div>
+        </div>
+        <div class="skill-bar" data-level="94">
+          <div class="skill-label"><i class="fa-solid fa-comments"></i> Soft Skills</div>
+          <div class="progress-bg"><div class="progress-bar"></div><span class="progress-text">94%</span></div>
+        </div>
+      </div>
+    </section>
+    <section id="projects">
+      <h2><i class="fa-solid fa-brain"></i> Projects</h2>
+      <div class="projects-list">
+        <article class="project-card">
+          <span class="sparkle"><i class="fa-solid fa-sparkles"></i></span>
+          <h3><i class="fa-solid fa-chart-line"></i> End To End Amazon Stock Price Prediction</h3>
+          <p class="description">
+            Developed a deep learning model that predicts Amazon’s stock closing prices to provide data-driven insights for traders and investors.
+          </p>
+          <p class="tech-stack">
+            Tech Stack: Python, TensorFlow, Pandas, Matplotlib, Scikit-Learn, Render, Postman, Docker
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Mohit-Mundria/End_to_End_AmazonClosingPricePrediction" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-stock" height="170"></canvas>
+          </div>
+        </article>
+        <article class="project-card">
+          <span class="sparkle"><i class="fa-solid fa-sparkles"></i></span>
+          <h3><i class="fa-solid fa-stethoscope"></i> End To End Disease Prediction System</h3>
+          <p class="description">
+            Built a comprehensive ML-based web application that predicts diseases based on user-input symptoms using an ensemble learning approach.
+          </p>
+          <p class="tech-stack">
+            Tech Stack: Python, Scikit-learn, Pandas, Postman
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Mohit-Mundria/End_To_End_Disease_Prediction_Project" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-disease" height="170"></canvas>
+          </div>
+        </article>
+        <article class="project-card">
+          <span class="sparkle"><i class="fa-solid fa-sparkles"></i></span>
+          <h3><i class="fa-solid fa-user-injured"></i> Student Depression Prediction</h3>
+          <p class="description">
+            Created a classification model to detect depression levels in students from survey data, achieving an accuracy of 84.9%.
+          </p>
+          <p class="tech-stack">
+            Tech Stack: Python, Scikit-Learn, Pandas, NumPy
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/Mohit-Mundria/Student-Depression-Prediction" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          </div>
+          <div class="chart-container">
+            <canvas id="chart-depression" height="170"></canvas>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="story">
+      <h2><i class="fa-solid fa-lightbulb"></i> My AI/ML Journey</h2>
+      <p>
+        From my very first Python script, I was hooked on the magic of AI. My journey began with classic machine learning, where I built the <b>Student Depression Prediction</b> model (<a href="https://github.com/Mohit-Mundria/Student-Depression-Prediction" target="_blank">repo</a>), learning how data can reveal hidden patterns about mental health. This project taught me the power of data preprocessing, feature engineering, and model evaluation.
+
+        Hungry for more, I dove into real-world applications with my <b>End To End Disease Prediction System</b> (<a href="https://github.com/Mohit-Mundria/End_To_End_Disease_Prediction_Project" target="_blank">repo</a>), where I learned to build robust, user-friendly ML web apps using ensemble learning. Deploying this project made me appreciate the importance of seamless user experience and scalable deployment.
+
+        My latest adventure? Tackling the financial world with <b>End To End Amazon Stock Price Prediction</b> (<a href="https://github.com/Mohit-Mundria/End_to_End_AmazonClosingPricePrediction" target="_blank">repo</a>). Here, I harnessed deep learning with TensorFlow, implemented LSTM networks, and optimized models for real-time predictions. This project not only sharpened my technical skills but also gave me insights into deploying full-stack AI solutions using Docker and Render.
+
+        Each project in my GitHub is a testament to my growth—from data wrangling to deploying AI in the wild. If you love code that solves real problems, let's connect!
+      </p>
+    </section>
+    <section id="contact">
+      <h2><i class="fa-solid fa-envelope"></i> Contact</h2>
+      <ul>
+        <li><i class="fa-brands fa-linkedin"></i> <a href="https://linkedin.com/in/mohit-mundria-31631a322" target="_blank">linkedin.com/in/mohit-mundria-31631a322</a></li>
+        <li><i class="fa-brands fa-github"></i> <a href="https://github.com/Mohit-Mundria" target="_blank">github.com/Mohit-Mundria</a></li>
+        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:mundriamohit100@gmail.com">mundriamohit100@gmail.com</a></li>
+      </ul>
+    </section>
+  </main>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Particle.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    // Theme Toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Animate skill bars
+    function animateSkillBars() {
+      document.querySelectorAll('.skill-bar').forEach(bar => {
+        const level = bar.getAttribute('data-level');
+        const progress = bar.querySelector('.progress-bar');
+        setTimeout(() => { progress.style.width = level + '%'; }, 400);
+      });
+    }
+    window.addEventListener('DOMContentLoaded', animateSkillBars);
+
+    // Chart.js Visualizations (Sample Data)
+    new Chart(document.getElementById('chart-stock'), {
+      type: 'line',
+      data: {
+        labels: ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7'],
+        datasets: [{
+          label: 'Predicted Price',
+          data: [180, 182, 185, 184, 187, 190, 192],
+          borderColor: '#007acc',
+          backgroundColor: 'rgba(0,122,204,0.1)',
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#007acc'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { x: { display: false }, y: { display: false } },
+        elements: { line: { borderWidth: 3 } }
+      }
+    });
+    new Chart(document.getElementById('chart-disease'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Accuracy', 'Other'],
+        datasets: [{
+          data: [93, 7],
+          backgroundColor: ['#00c3ff', '#e9f0ff'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '75%',
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      }
+    });
+    new Chart(document.getElementById('chart-depression'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Accuracy', 'Other'],
+        datasets: [{
+          data: [84.9, 15.1],
+          backgroundColor: ['#f9d923', '#e9f0ff'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '75%',
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      }
+    });
+
+    // Particle.js config
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 70, density: { enable: true, value_area: 800 } },
+        color: { value: ['#007acc', '#00c3ff', '#f9d923', '#ff61a6'] },
+        shape: { type: 'circle' },
+        opacity: { value: 0.7, random: true },
+        size: { value: 4, random: true },
+        line_linked: { enable: true, distance: 120, color: '#007acc', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+        modes: { repulse: { distance: 70 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>
